@@ -28,8 +28,38 @@ def digits_to_words(input_string):
             >>> tp2.digits_to_words(digits_str2)
             'three one four one five'
     """
-    digit_string = None
-    return digit_string
+    def str_to_words(s):
+        if s == '0':
+            return 'zero'
+        elif s == '1':
+            return 'one'
+        elif s == '2':
+            return 'two'
+        elif s == '3':
+            return 'three'
+        elif s == '4':
+            return 'four'
+        elif s == '5':
+            return 'five'
+        elif s == '6':
+            return 'six'
+        elif s == '7':
+            return 'seven'
+        elif s == '8':
+            return 'eight'
+        else:
+            return 'nine'
+        
+    digit_list = []
+    
+    for i in input_string:
+        if i.isdigit():
+            digit_list.append(str_to_words(i))
+    
+    if len(digit_list) == 0:
+        return ''
+    else:
+        return ' '.join(digit_list)
 
 
 """
@@ -64,5 +94,39 @@ def to_camel_case(underscore_str):
             >>> tp2.to_camel_case(underscore_str3)
             "alreadyCamel"
     """
-    camelcase_str = None
+    from copy import deepcopy
+    
+    replace_string = deepcopy(underscore_str)
+    
+    for i in underscore_str:
+        if i == '_':
+            replace_string = replace_string.replace(i,'')
+
+    
+    if replace_string == '':
+        return ''
+    else:
+        split_string_list = underscore_str.split('_')
+        
+        number = 0
+        
+        for i in split_string_list:
+            if i == '':
+                number += 1
+            
+        if number != 0:
+            for i in range(number):
+                split_string_list.remove('')
+        
+        if len(split_string_list) == 1:
+            return ''.join(split_string_list)
+        
+        else:
+        
+            title_str = (' '.join(split_string_list[1:])).title()
+
+            title_str_delete = ''.join(title_str.split())
+
+            camelcase_str = split_string_list[0].lower() + title_str_delete
+        
     return camelcase_str
